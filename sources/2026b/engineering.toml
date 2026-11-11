@@ -1,0 +1,64 @@
+# 工学部キャンパス (六甲台第2キャンパスの工学部・システム情報学部エリア)
+# 一覧: https://www.eng.kobe-u.ac.jp/student/kym_timetable_2026b.html
+#       https://www.csi.kobe-u.ac.jp/current_students/
+
+[defaults]
+parser = "grid"
+area = "工学部"
+page = "https://www.eng.kobe-u.ac.jp/student/kym_timetable_2026b.html"
+# 「鶴1B110」「K501」「B209」は鶴甲第1キャンパスの教室 (各PDFの注意事項5)
+strip = "^鶴1"
+[defaults.foreign]
+"鶴甲第1" = "^(鶴1)?[BK]\\d{3}$"
+
+[[source]]
+id = "eng-aa"
+title = "工学部 建築学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_AA_v2.pdf"
+
+
+[[source]]
+id = "eng-ce"
+title = "工学部 市民工学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_CE_v2.pdf"
+
+
+[[source]]
+id = "eng-ee"
+title = "工学部 電気電子工学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_EE_v2.pdf"
+
+
+[[source]]
+id = "eng-mm"
+title = "工学部 機械工学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_MM_v2.pdf"
+
+
+[[source]]
+id = "eng-cx"
+title = "工学部 応用化学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_CX_v2.pdf"
+
+
+[[source]]
+id = "eng-cs"
+title = "工学部 情報知能工学科 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_CS_v2.pdf"
+
+[[source]]
+id = "eng-master"
+title = "工学研究科 博士課程前期課程 第3・4Q時間割表"
+url = "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/10/2026b_m3.pdf"
+
+[[source]]
+id = "csi-bachelor"
+title = "システム情報学部 第3・4Q時間割表"
+url = "https://www.csi.kobe-u.ac.jp/current_students/timetable/2026/2026b_csi-b_v3.pdf"
+page = "https://www.csi.kobe-u.ac.jp/current_students/"
+
+[[source]]
+id = "csi-master"
+title = "システム情報学専攻 博士課程前期課程 授業時間割表"
+url = "https://www.csi.kobe-u.ac.jp/current_students/timetable/2026/2026b_csi-m.pdf"
+page = "https://www.csi.kobe-u.ac.jp/current_students/"

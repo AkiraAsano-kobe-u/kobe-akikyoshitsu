@@ -1,0 +1,111 @@
+# 鶴甲第1キャンパス: 全学共通授業科目 (教養教育院) と国際人間科学部グローバル文化学科
+# 一覧: https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html
+#       https://www.fgh.kobe-u.ac.jp/ja/node/123
+# 健康・スポーツ科学実習 (体育施設) と時間外開講の再履修科目は教室が無いので載せていない。
+
+[defaults]
+parser = "iphe_list"
+area = "鶴甲第1"
+page = "https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html"
+
+[[source]]
+id = "iphe-kyouyou-3q"
+title = "全学共通授業科目 教養科目 第3クォーター"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/01_kyouyou_3q.pdf"
+quarters = ["3Q"]
+
+[[source]]
+id = "iphe-kyouyou-4q"
+title = "全学共通授業科目 教養科目 第4クォーター"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/01_kyouyou_4q.pdf"
+quarters = ["4Q"]
+
+[[source]]
+id = "iphe-kyouyou-kouki"
+title = "全学共通授業科目 教養科目 後期"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/01_kyouyou_kouki.pdf"
+semester = true
+
+[[source]]
+id = "iphe-english"
+title = "全学共通授業科目 外国語第I(英語)"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/06_english.pdf"
+
+
+[[source]]
+id = "iphe-german"
+title = "全学共通授業科目 ドイツ語"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/07_germany.pdf"
+
+
+[[source]]
+id = "iphe-french"
+title = "全学共通授業科目 フランス語"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/08_french.pdf"
+
+
+[[source]]
+id = "iphe-chinese"
+title = "全学共通授業科目 中国語"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/09_chinese.pdf"
+
+
+[[source]]
+id = "iphe-russian"
+title = "全学共通授業科目 ロシア語"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/10_russian.pdf"
+
+
+[[source]]
+id = "iphe-gai3"
+title = "全学共通授業科目 外国語第III"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/11_gai3.pdf"
+
+
+[[source]]
+id = "iphe-math"
+title = "全学共通授業科目 数学"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/12_math.pdf"
+
+
+[[source]]
+id = "iphe-physics"
+title = "全学共通授業科目 物理学"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/13_physics.pdf"
+
+
+[[source]]
+id = "iphe-chemistry"
+title = "全学共通授業科目 化学"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/14_chemistry.pdf"
+
+
+[[source]]
+id = "iphe-biology"
+title = "全学共通授業科目 生物学"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/15_biology.pdf"
+
+
+[[source]]
+id = "iphe-cs"
+title = "全学共通授業科目 情報科学"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/16_computer%20science.pdf"
+
+
+[[source]]
+id = "iphe-sports-lecture"
+title = "全学共通授業科目 健康・スポーツ科学 講義"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/18_sports_kougi.pdf"
+
+
+[[source]]
+id = "iphe-koudo"
+title = "全学共通授業科目 高度教養科目(教養教育院開講)"
+url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/99_koudo.pdf"
+
+[[source]]
+id = "fgh-gc"
+title = "国際人間科学部 グローバル文化学科 授業科目時間割表(3Q、4Q)"
+url = "https://www.fgh.kobe-u.ac.jp/system/files/2026-10/jikanwari%20kouki%20gc%2020261008.pdf"
+page = "https://www.fgh.kobe-u.ac.jp/ja/node/123"
+parser = "grid"

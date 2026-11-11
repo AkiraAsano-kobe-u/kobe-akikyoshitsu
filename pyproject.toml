@@ -1,0 +1,24 @@
+[project]
+name = "akikyoshitsu"
+version = "0.1.0"
+description = "神戸大学の公開時間割PDFから、授業が入っていない教室(空き教室)を割り出す非公式ツール"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = ["pymupdf>=1.24"]
+
+[project.scripts]
+akikyoshitsu = "akikyoshitsu.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/akikyoshitsu"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
