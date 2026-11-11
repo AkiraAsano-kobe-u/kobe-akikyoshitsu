@@ -1,0 +1,123 @@
+# 六甲台第1キャンパス (法学部・法学研究科・法科大学院・経済学部・経済学研究科・経営学部・経営学研究科・国際協力研究科)
+# 各学部の一覧: https://www.law.kobe-u.ac.jp/ungr/student-basic-ungr.html (法)
+#   https://www.econ.kobe-u.ac.jp/class-registration-undergrad/ (経済) https://b.kobe-u.ac.jp/ugrad/ (経営)
+#   https://www.gsics.kobe-u.ac.jp/students/schedule.html (国際協力)
+#
+# 教室名は「<建物名><番号>」にそろえる。建物名は 本館 / 第二学舎 / 第三学舎 / 第四学舎 / 第五学舎 / アカデミア館 / フロンティア館。
+# 各PDFの凡例 (教室表示) と読み替え:
+#   法学部      Ⅰ=六甲台本館 Ⅱ=第二学舎 Ⅲ=第三学舎 ア=アカデミア館 フ=フロンティア館 (●=六甲台第2は捨てる)
+#   法学研究科  Ⅰ=第一学舎(経済・経営学部) Ⅱ=第二学舎(法学部) Ⅲ=第三学舎 Ⅳ=第四学舎 Ⅴ=第五学舎(国際協力研究科) ア=アカデミア館 フ=フロンティア館
+#   法科大学院  Ⅰ=第一学舎(本館) Ⅱ=第二学舎(法学部) ア=アカデミア館 フ=フロンティア館
+#   経済学部    Ⅰ=第一学舎(本館) Ⅱ=第二学舎(法学部学舎) Ⅲ=第三学舎 Ⅳ=第四学舎 Ⅴ=第五学舎(国際協力研究科学舎) Ⅵ=第六学舎(アカデミア館) Ⅶ=第七学舎(フロンティア館) 情報処理室=第三学舎2階
+#   経済学研究科 Ⅰ=六甲台本館 Ⅱ=法学部学舎 Ⅲ=第3学舎 Ⅳ=第4学舎 Ⅴ=国際協力研究科棟 Ⅵ=アカデミア館 Ⅶ=フロンティア館 情報処理室=第3学舎2階
+#   経営学部/研究科 Ⅰ=六甲台本館〈第1学舎〉 Ⅲ=第3学舎 Ⅳ=第4学舎 Ⅴ=第5学舎 Ⅵ=アカデミア館 Ⅶ=フロンティア館 三木=三木記念館 (V学舎201 は Ⅴ201 と同じ)
+#   国際協力研究科 I=経済・経営本館 Ⅱ=第2学舎 Ⅲ=第3学舎 Ⅳ=第4学舎 VI=アカデミア館 フ=フロンティア館 C=鶴甲第1C棟 工=工学部
+#                  PR=4F プレゼンテーションルーム SI=6F シミュレーションルーム 411=4F 情報処理演習室 Office=研究室 (建物記号の無い 206 は国際協力研究科棟=第五学舎)
+# 三木記念館(三木1〜3)・研究室・農/工学部の教室・六甲台第2の教室は捨てる。
+[defaults]
+parser = "rk1_lawgr"
+area = "六甲台第1"
+room_pattern = "(?:本館|第[二三四五]学舎|アカデミア館|フロンティア館)\\d{3}|第五学舎(?:プレゼンテーション|シミュレーション)ルーム|第三学舎情報処理室|[BCDKM]\\d{3}"
+
+# 全学共通授業科目の教室 (B110, D303 ...) は鶴甲第1キャンパスの教室
+[defaults.foreign]
+"鶴甲第1" = "^[BCDKM]\\d{3}$"
+
+[defaults.rename]
+# 情報処理室は第三学舎2階 (経済学部・経済学研究科の時間割の教室表示)
+"^情報処理室$" = "第三学舎情報処理室"
+"^I(\\d{3})$" = "本館\\1"
+"^II(\\d{3})$" = "第二学舎\\1"
+"^III(\\d{3})$" = "第三学舎\\1"
+"^IV(\\d{3})$" = "第四学舎\\1"
+"^V(?:学舎)?(\\d{3})$" = "第五学舎\\1"
+"^(?:VI|ア)(\\d{3})$" = "アカデミア館\\1"
+"^(?:VII|フ)(\\d{3})$" = "フロンティア館\\1"
+
+[[source]]
+id = "law-gr-m"
+title = "法学研究科 博士課程前期課程 後期時間割"
+url = "https://www.law.kobe-u.ac.jp/pdf/graduate/student/3_zikanwari_20261019_m.pdf"
+page = "https://www.law.kobe-u.ac.jp/gr/student-gr-basic.html"
+columns = [[1], [2], [3], [4], [5, 6], []]
+
+[[source]]
+id = "law-gr-d"
+title = "法学研究科 博士課程後期課程 後期時間割"
+url = "https://www.law.kobe-u.ac.jp/pdf/graduate/student/4_zikanwari_20261019_d.pdf"
+page = "https://www.law.kobe-u.ac.jp/gr/student-gr-basic.html"
+columns = [[1], [2], [3], [4], [5, 6], []]
+
+[[source]]
+id = "law-ls"
+title = "法科大学院 後期時間割"
+url = "https://www.law.kobe-u.ac.jp/pdf/lawschool/students/20261021-ls-kjikan.pdf"
+page = "https://www.law.kobe-u.ac.jp/ls/student/student-basic-ls.html"
+columns = [[1], [2], [3], [4], [5]]
+
+[[source]]
+id = "law-ug"
+title = "法学部 後期授業時間割表"
+url = "https://www.law.kobe-u.ac.jp/pdf/undergraduate/student/students2026-1021-jikan-k.pdf"
+page = "https://www.law.kobe-u.ac.jp/ungr/student-basic-ungr.html"
+parser = "rk1_lawug"
+
+[[source]]
+id = "econ-ug"
+title = "経済学部 後期時間割表"
+url = "https://www.econ.kobe-u.ac.jp/wp/wp-content/uploads/2026/10/06-1_timetablerev1007.pdf"
+page = "https://www.econ.kobe-u.ac.jp/class-registration-undergrad/"
+parser = "rk1_econ"
+
+[[source]]
+id = "econ-gr"
+title = "経済学研究科 後期時間割"
+url = "https://www.econ.kobe-u.ac.jp/wp/wp-content/uploads/2026/10/20261030timetableMD.pdf"
+page = "https://www.econ.kobe-u.ac.jp/ja-class-registration-grad/"
+parser = "rk1_econ"
+
+[[source]]
+id = "biz-ug1"
+title = "経営学部 後期授業時間割表 (1年生)"
+url = "https://b.kobe-u.ac.jp/wp-jp/wp-content/uploads/files/ugrad_2026kouki_1.pdf"
+page = "https://b.kobe-u.ac.jp/ugrad/"
+parser = "rk1_biz_ug"
+
+[[source]]
+id = "biz-ug2"
+title = "経営学部 後期授業時間割表 (2年生以上)"
+url = "https://b.kobe-u.ac.jp/wp-jp/wp-content/uploads/files/ugrad_2026kouki_2.pdf"
+page = "https://b.kobe-u.ac.jp/ugrad/"
+parser = "rk1_biz_ug"
+
+[[source]]
+id = "biz-gr"
+title = "経営学研究科 後期授業時間割表 (本科履修コース)"
+url = "https://b.kobe-u.ac.jp/wp-jp/wp-content/uploads/files/schedule_2026b_1007.pdf"
+page = "https://b.kobe-u.ac.jp/phd/schedule/"
+parser = "rk1_biz_gr"
+
+# 国際協力研究科: 教室は建物記号の無い「206」(国際協力研究科棟=第五学舎) と略号 PR / SI。
+# 略号は同PDFの凡例: PR=4F プレゼンテーションルーム, SI=6F シミュレーションルーム(GNP room), 411=4F 情報処理演習室, Office=研究室
+[[source]]
+id = "gsics"
+title = "国際協力研究科 後期時間割 (前期課程・後期課程)"
+url = "https://www.gsics.kobe-u.ac.jp/storage/001/202611/261110_2026_Timetable_FallSemester.pdf"
+page = "https://www.gsics.kobe-u.ac.jp/students/schedule.html"
+parser = "rk1_gsics"
+# 「工C2-302」は工学部キャンパスの教室
+strip = "^工"
+room_pattern = "(?:本館|第[二三四五]学舎|アカデミア館|フロンティア館)\\d{3}|第五学舎(?:プレゼンテーション|シミュレーション)ルーム|[BCDKM]\\d{3}|C\\d-\\d{3}"
+foreign = { "工学部" = "^工C\\d-\\d{3}$", "鶴甲第1" = "^[BCDKM]\\d{3}$" }
+
+[source.rename]
+"^(\\d{3})$" = "第五学舎\\1"
+"^PR$" = "第五学舎プレゼンテーションルーム"
+"^SI$" = "第五学舎シミュレーションルーム"
+"^I(\\d{3})$" = "本館\\1"
+"^II(\\d{3})$" = "第二学舎\\1"
+"^III(\\d{3})$" = "第三学舎\\1"
+"^IV(\\d{3})$" = "第四学舎\\1"
+"^V(?:学舎)?(\\d{3})$" = "第五学舎\\1"
+"^(?:VI|ア)(\\d{3})$" = "アカデミア館\\1"
+"^(?:VII|フ)(\\d{3})$" = "フロンティア館\\1"

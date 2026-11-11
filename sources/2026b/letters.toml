@@ -1,0 +1,52 @@
+# 文学部・人文学研究科 (六甲台第1キャンパス 文学部の建物)
+# 一覧: http://www.lit.kobe-u.ac.jp/students/syllabus.html
+# 全学共通科目 (zengaku_2026b.pdf) は別キャンパスの教室なので載せていない。
+#
+# 教室名: 文学部の建物は A棟・B棟・C棟 で「棟記号+3桁」(例 B132 = B棟1階2号室ではなく
+# 3桁の最初の数字が階)。PDFに凡例は無いので、表記をそのまま使う。
+# 「※1」は各PDFの脚注 (鶴甲第一キャンパスD棟5階 D503) を指し、パーサが「鶴1D503」にして
+# ここで鶴甲第1に振り分ける。
+
+[defaults]
+parser = "letters_grid"
+area = "文学部"
+page = "http://www.lit.kobe-u.ac.jp/students/syllabus.html"
+# 教室: A221 B132 C262 (全角混在あり、NFKCで半角になる)
+room_pattern = "[ABC]\\d{3}|D503"
+strip = "^鶴1"
+[defaults.foreign]
+"鶴甲第1" = "^鶴1"
+
+[[source]]
+id = "lit-bachelor"
+title = "文学部 後期時間割 (2025年度以降入学生)"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/b-2025_2026b3.pdf"
+
+[[source]]
+id = "lit-bachelor-3q"
+title = "文学部 第3Q・後期時間割 (2020-2022年度入学生用)"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/b-2022_2026_3q3.pdf"
+quarters = ["3Q"]
+
+[[source]]
+id = "lit-bachelor-4q"
+title = "文学部 第4Q時間割 (2020-2022年度入学生用)"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/b-2022_2026_4q3.pdf"
+quarters = ["4Q"]
+
+[[source]]
+id = "lit-master"
+title = "人文学研究科 博士課程前期課程 後期時間割"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/m_2026b3.pdf"
+
+[[source]]
+id = "lit-kodokyoyo"
+title = "文学部 高度教養科目 後期"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/kodokyoyo_2026b2.pdf"
+parser = "letters_kodokyoyo"
+
+[[source]]
+id = "lit-doctor"
+title = "人文学研究科 博士課程後期課程 後期 (研究科共通科目は集中講義のみ)"
+url = "http://www.lit.kobe-u.ac.jp/students/pdf/d_2026b.pdf"
+parser = "letters_doctor"

@@ -1,0 +1,93 @@
+# 鶴甲第2キャンパス: 国際人間科学部 (発達コミュニティ学科・環境共生学科・子ども教育学科) と人間発達環境学研究科
+# 一覧: https://www.fgh.kobe-u.ac.jp/ja/node/123
+#       https://www.h.kobe-u.ac.jp/ja/node/1110
+#
+# 教室表記とキャンパス (どちらも鶴甲第1・第2に A〜G 棟があり、同じ B210 でも別の部屋になりうる)
+#  - 国際人間科学部の3PDF: 凡例「★ 鶴甲第二キャンパスの教室」。★ の付いた教室は鶴甲第2、
+#    ★ の無い教室 (D5xx, F101, F102, F301, F401, K502, B109, C301 など) は鶴甲第1。
+#    ★ は core.split_token に捨てられてしまうので、パーサ grid_ext の star_prefix で「鶴2」に置き換えて運ぶ。
+#  - 人間発達環境学研究科の PDF: 注意事項「上記の教室欄に記載した講義場所は、(特に記載が無い場合は) すべて
+#    鶴甲第二キャンパスである。」(前期課程・後期課程。前期課程1年履修コースには注記が無いが同研究科・同じ棟の表記)。
+# 大学院の5限は 17:50-19:20、6限は 19:30-21:00 (標準の5限17:00-18:30・6限18:50-20:20と時刻が違う)。
+# 重なる標準時限をすべて使用中にする: 5限 -> 5,6 / 6限 -> 6 / 7限 (21:10-) は表現できないので捨てる。
+
+[defaults]
+parser = "grid_ext"
+area = "鶴甲第2"
+
+# ---- 国際人間科学部 (★ = 鶴甲第2, 無印 = 鶴甲第1) ----
+[[source]]
+id = "fgh-hdc"
+title = "国際人間科学部 発達コミュニティ学科 授業科目時間割表(3Q、4Q)"
+url = "https://www.fgh.kobe-u.ac.jp/system/files/2026-10/jikanwari_kouki_hdc_20261002.pdf"
+page = "https://www.fgh.kobe-u.ac.jp/ja/node/123"
+area = "鶴甲第1"
+star_prefix = "鶴2"
+sixth_marker = true
+day_bands = "rule"
+strip = "^鶴2"
+foreign = { "鶴甲第2" = "^鶴2" }
+
+# PDF (10/2版) の後に出た「時間割変更一覧」(2026-11-10版, https://www.fgh.kobe-u.ac.jp/system/files/2026-11/jikanwari_kouki_henkou_20261110.pdf)
+# の教室変更のうち、PDFの表にはまだ反映されていないもの。変更後の教室を使用中として足す
+# (変更前の教室は表に残るので、空きに倒れる側は何もしない)。
+#   Academic Writing(英) ハリソン (3H043/3H046/3HA43/3HA46/4HA43/4HA46) 金3・金4  D506 -> D505 (10/2掲示)
+#   日本文化交流論 寺内 (3H332/3HD32/4HD32) 月4  F102 -> F301 (10/5掲示)
+[[source.extra]]
+day = "金"
+periods = [3, 4]
+token = "D505"
+note = "Academic Writing(英) ハリソン D506->D505 (時間割変更一覧 10/2)"
+
+[[source.extra]]
+day = "月"
+periods = [4]
+token = "F301"
+note = "日本文化交流論 寺内 F102->F301 (時間割変更一覧 10/5)"
+
+[[source]]
+id = "fgh-es"
+title = "国際人間科学部 環境共生学科 授業科目時間割表(3Q、4Q)"
+url = "https://www.fgh.kobe-u.ac.jp/system/files/2026-10/jikanwari_kouki_es_20261027.pdf"
+page = "https://www.fgh.kobe-u.ac.jp/ja/node/123"
+area = "鶴甲第1"
+star_prefix = "鶴2"
+sixth_marker = true
+day_bands = "rule"
+strip = "^鶴2"
+foreign = { "鶴甲第2" = "^鶴2" }
+
+[[source]]
+id = "fgh-ce"
+title = "国際人間科学部 子ども教育学科 授業科目時間割表(3Q、4Q)"
+url = "https://www.fgh.kobe-u.ac.jp/system/files/2026-10/jikanwari_kouki_ce_20261009.pdf"
+page = "https://www.fgh.kobe-u.ac.jp/ja/node/123"
+area = "鶴甲第1"
+star_prefix = "鶴2"
+sixth_marker = true
+day_bands = "rule"
+strip = "^鶴2"
+foreign = { "鶴甲第2" = "^鶴2" }
+
+# ---- 人間発達環境学研究科 (すべて鶴甲第2) ----
+[[source]]
+id = "hudev-master"
+title = "人間発達環境学研究科 前期課程 後期(第3Q・第4Q)授業時間割表"
+url = "https://www.h.kobe-u.ac.jp/system/files/2026-09/2026_kouki_master_20260907.pdf"
+page = "https://www.h.kobe-u.ac.jp/ja/node/1110"
+period_map = { "5" = [5, 6] }
+
+[[source]]
+id = "hudev-doctor"
+title = "人間発達環境学研究科 後期課程 後期(第3Q・第4Q)授業時間割表"
+url = "https://www.h.kobe-u.ac.jp/system/files/2026-09/2026_kouki_doctor_20260907.pdf"
+page = "https://www.h.kobe-u.ac.jp/ja/node/1110"
+period_map = { "5" = [5, 6] }
+
+[[source]]
+id = "hudev-master1"
+title = "人間発達環境学研究科 前期課程1年履修コース (後期 3Q・4Q)"
+url = "https://www.h.kobe-u.ac.jp/system/files/2026-09/2026_master1nen_20260907.pdf"
+page = "https://www.h.kobe-u.ac.jp/ja/node/1110"
+parser = "hudev_course"
+period_map = { "5" = [5, 6], "6" = [6], "7" = [] }

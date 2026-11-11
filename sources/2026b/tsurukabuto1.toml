@@ -108,4 +108,8 @@ id = "fgh-gc"
 title = "国際人間科学部 グローバル文化学科 授業科目時間割表(3Q、4Q)"
 url = "https://www.fgh.kobe-u.ac.jp/system/files/2026-10/jikanwari%20kouki%20gc%2020261008.pdf"
 page = "https://www.fgh.kobe-u.ac.jp/ja/node/123"
-parser = "grid"
+# 凡例「★ 鶴甲第二キャンパスの教室」: ★付きは鶴甲第2、無印は鶴甲第1
+parser = "grid_star"
+star_prefix = "鶴2"
+strip = "^鶴2"
+foreign = { "鶴甲第2" = "^鶴2" }

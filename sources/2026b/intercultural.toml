@@ -1,0 +1,24 @@
+# 鶴甲第1キャンパス: 国際文化学研究科 (後期)
+# 一覧: http://web.cla.kobe-u.ac.jp/students-g
+# PDFの注意事項「キャンパスの記載がない場合、鶴甲第一キャンパスを指す。」「教室が空欄の授業は、教員の研究室で行う。」
+# 開講時期が「後期」の科目は第3Q・第4Qの両方に入れる (クォーター科目の記載は無い)。
+# 表中の教室 L2xx/D5xx/F1xx/B3xx は鶴甲第1の L棟・D棟・F棟・B棟
+# (https://www.kobe-u.ac.jp/ja/campus-life/general/access/rokko/tsurukabuto1/)。
+
+[defaults]
+parser = "grid_ext"
+area = "鶴甲第1"
+page = "http://web.cla.kobe-u.ac.jp/students-g"
+columns = "window"
+day_bands = "full"
+
+[[source]]
+id = "cla-master"
+title = "国際文化学研究科 博士課程前期課程 M後期 授業時間割表"
+url = "http://web.cla.kobe-u.ac.jp/wp/wp-content/uploads/M1007.pdf"
+
+[[source]]
+id = "cla-doctor"
+title = "国際文化学研究科 博士課程後期課程 D後期 授業時間割表 (同PDFの【D前期】は対象外)"
+url = "http://web.cla.kobe-u.ac.jp/wp/wp-content/uploads/2D.pdf"
+after = "D後期"
