@@ -139,7 +139,7 @@ function nowState() {
   };
 }
 function building(room) {
-  const m = room.match(/^(LR|[A-Z]\d?(?=-)|\d[EW](?=-)|[A-Z]+|[^\d]+)/);
+  const m = room.match(/^(LR|[A-Z]\d?(?=-)|\d[EW](?=-)|[A-Z]+|.*?(?:館|学舎)|[^\d]+)/);
   return m ? m[1].replace(/-$/, "") : room;
 }
 function busySet(slots, day, quarter) {

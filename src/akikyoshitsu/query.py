@@ -36,7 +36,7 @@ def period_at(time: datetime.time) -> int | None:
 
 
 def building(room: str) -> str:
-    m = re.match(r"LR|[A-Z]\d?(?=-)|\d[EW](?=-)|[A-Z]+|[^\d]+", room)
+    m = re.match(r"LR|[A-Z]\d?(?=-)|\d[EW](?=-)|[A-Z]+|.*?(?:館|学舎)|[^\d]+", room)
     return m.group() if m else room
 
 
