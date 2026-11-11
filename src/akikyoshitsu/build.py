@@ -33,6 +33,13 @@ def build(term: str, refresh: bool = False, root: Path = sources.ROOT) -> dict:
                 occupancy[area][room].add(key)
                 used_by[f"{area}|{room}|{key}"].add(source["id"])
                 kept += 1
+        # 教室を1つも読めなかった source は、書式が変わって読み落としている疑いが強い。
+        # 読み落とした教室は「空き」に見えてしまうので、ここで止める。
+        if kept < source.get("min_slots", 1):
+            raise RuntimeError(
+                f"{source['id']}: 読めたコマが {kept} 件しかありません (min_slots={source.get('min_slots', 1)})。"
+                f" `akikyoshitsu inspect {term} {source['id']} -v` で確認してください"
+            )
         source_info.append({
             "id": source["id"], "title": source["title"], "url": source["url"],
             "page": source.get("page", ""), "sha256": sources.sha256(path), "slots": kept,

@@ -28,3 +28,9 @@ def test_resolve_rooms_drops_non_rooms():
 def test_rename():
     source = {"area": "X", "room_pattern": r"本館\d{3}", "rename": {r"^I-?": "本館"}}  # NFKC で Ⅰ は I になる
     assert resolve_rooms("Ⅰ-102", source) == [("X", "本館102")]
+
+
+def test_split_token_carries_building_prefix():
+    assert split_token("B304・305") == ["B304", "B305"]
+    assert split_token("C3-302・303") == ["C3-302", "C3-303"]
+    assert split_token("206") == ["206"]  # 前の教室が無ければそのまま

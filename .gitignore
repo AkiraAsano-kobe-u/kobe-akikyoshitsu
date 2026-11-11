@@ -5,3 +5,5 @@ cache/
 .pytest_cache/
 dist/
 site/
+.DS_Store
+*.egg-info/

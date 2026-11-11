@@ -25,6 +25,10 @@ id = "iphe-kyouyou-kouki"
 title = "全学共通授業科目 教養科目 後期"
 url = "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/01_kyouyou_kouki.pdf"
 semester = true
+# 「第5学舎208教室」は六甲台第1キャンパスの教室。「農学部B101」は対象外のキャンパスなので拾わない
+room_pattern = "[A-Z]\\d{3}|第五学舎\\d{3}"
+foreign = { "六甲台第1" = "^第5学舎" }
+rename = { "^第5学舎" = "第五学舎" }
 
 [[source]]
 id = "iphe-english"

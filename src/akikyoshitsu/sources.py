@@ -2,12 +2,13 @@
 from __future__ import annotations
 
 import hashlib
+import time
 import tomllib
 import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-USER_AGENT = "Mozilla/5.0 (akikyoshitsu; +https://github.com/)"
+USER_AGENT = "akikyoshitsu/0.1 (unofficial classroom finder for Kobe University students)"
 
 
 def load_term(term: str, root: Path = ROOT) -> tuple[dict, list[dict]]:
@@ -22,6 +23,9 @@ def load_term(term: str, root: Path = ROOT) -> tuple[dict, list[dict]]:
         defaults = doc.get("defaults", {})
         for entry in doc.get("source", []):
             source = {**defaults, **entry, "file": path.name}
+            for key in ("foreign", "rename"):  # 表はキーごとに重ねる (source 側が優先)
+                if key in defaults or key in entry:
+                    source[key] = {**defaults.get(key, {}), **entry.get(key, {})}
             source.setdefault("quarters", list(meta["quarters"]))
             sources.append(source)
     ids = [s["id"] for s in sources]
@@ -37,6 +41,7 @@ def fetch(source: dict, term: str, refresh: bool = False, root: Path = ROOT) -> 
     if path.exists() and not refresh:
         return path
     path.parent.mkdir(parents=True, exist_ok=True)
+    time.sleep(1)  # 大学のサーバーに続けて要求しない
     request = urllib.request.Request(source["url"], headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(request, timeout=60) as response:
         body = response.read()

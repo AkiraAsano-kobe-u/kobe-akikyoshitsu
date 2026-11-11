@@ -2,7 +2,7 @@ name: pages
 on:
   push:
     branches: [main]
-    paths: ["data/**", "web/**", ".github/workflows/pages.yml"]
+    paths: ["data/**", "web/**", "src/**", "pyproject.toml", "uv.lock", ".github/workflows/pages.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,6 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync
+      - run: uv run pytest -q
       - run: uv run akikyoshitsu html --out site/index.html
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -20,6 +20,17 @@ CASES = [
     ("eng-cs", "J202", "月", "3Q", 2),  # HPC
     ("eng-master", "C1-201", "月", "3Q", 2),  # 鋼架構論1
     ("csi-master", "LR201", "月", "3Q", 3),  # システム計測特論2 (後期)
+    # 教室名が教員名などと1語にくっついているコマ (独立レビューで読み落としが見つかった)
+    ("eng-aa", "A-101", "金", "3Q", 3),  # 設計基礎A2 「A-101、設計基礎A2」
+    ("eng-aa", "A-102", "金", "3Q", 4),
+    ("eng-aa", "A-101", "水", "4Q", 3),  # 設計基礎C2
+    ("eng-ee", "LR301", "月", "3Q", 4),  # フーリエ解析 「太田（快）LR301」
+    ("eng-ee", "C1-301", "金", "3Q", 4),  # 集積回路工学 「中島・井上C1-301」
+    ("eng-ee", "C1-301", "金", "4Q", 5),
+    ("eng-ee", "C3-302", "火", "4Q", 5),
+    ("eng-mm", "C4-201", "火", "3Q", 1),  # 機械創造設計プロジェクトI 「横小路・磯野C4-201」
+    ("eng-mm", "C3-302", "金", "3Q", 2),
+    ("eng-mm", "3E-304", "金", "4Q", 3),  # 「本間･グォン3E-304」
 ]
 
 
@@ -33,3 +44,18 @@ def test_free_slots_stay_free(occupied):
     busy = occupied(T, "csi-bachelor")
     assert ("工学部", "J202", "月", "3Q", 5) not in busy
     assert not [b for b in busy if b[1] == "J202" and b[2] == "金" and b[4] >= 3]
+
+
+def test_every_room_written_on_the_page_is_read(occupied):
+    """ページに書かれた工学部棟の教室は、必ずどこかのコマとして読まれている (読み落とし=空きの誤表示)."""
+    import re
+
+    import pymupdf
+
+    from akikyoshitsu import sources
+
+    written = re.compile(r"LR\d{3}|[AC]\d?-[G\d]\d{2}|\d[EW]-\d{3}")
+    for source in ("eng-aa", "eng-ce", "eng-ee", "eng-mm", "eng-cx", "eng-cs"):
+        rooms = {b[1] for b in occupied(T, source) if b[0] == "工学部"}
+        text = pymupdf.open(sources.ROOT / "cache" / T / f"{source}.pdf")[0].get_text()
+        assert set(written.findall(text)) <= rooms, source

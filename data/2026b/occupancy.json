@@ -19,7 +19,7 @@
    "url": "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_AA_v2.pdf",
    "page": "https://www.eng.kobe-u.ac.jp/student/kym_timetable_2026b.html",
    "sha256": "f9a210d4937a46692e70093dcacc7589846cbd484d4586592c95af7b30fb9813",
-   "slots": 122
+   "slots": 129
   },
   {
    "id": "eng-ce",
@@ -35,7 +35,7 @@
    "url": "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_EE_v2.pdf",
    "page": "https://www.eng.kobe-u.ac.jp/student/kym_timetable_2026b.html",
    "sha256": "d8bdc99c0ca4281b4fa410493dfefbb4f3d616197550200cda5c715c7b0b1654",
-   "slots": 51
+   "slots": 60
   },
   {
    "id": "eng-mm",
@@ -43,7 +43,7 @@
    "url": "https://www.eng.kobe-u.ac.jp/wp-content/uploads/2026/09/2026b_b_MM_v2.pdf",
    "page": "https://www.eng.kobe-u.ac.jp/student/kym_timetable_2026b.html",
    "sha256": "2a89d480a690b21c546ef31ac992294b15344b136b1cffaec3e3a9b43d40a077",
-   "slots": 38
+   "slots": 43
   },
   {
    "id": "eng-cx",
@@ -251,7 +251,7 @@
    "url": "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/01_kyouyou_kouki.pdf",
    "page": "https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html",
    "sha256": "1c1fee69f4129b7d64ba9d329223ae40839b4c8d90733a9cb38c6daeec4c28d9",
-   "slots": 0
+   "slots": 4
   },
   {
    "id": "iphe-english",
@@ -315,7 +315,7 @@
    "url": "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/13_physics.pdf",
    "page": "https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html",
    "sha256": "7ddd83f23d46463d0a32a3a4421e368c4df8e3412a361fc88371283148d808a9",
-   "slots": 20
+   "slots": 22
   },
   {
    "id": "iphe-chemistry",
@@ -323,7 +323,7 @@
    "url": "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/14_chemistry.pdf",
    "page": "https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html",
    "sha256": "f63761da55c0d5298f17f17ae973323cbe6878010851e86cf0bd689b7f162f0f",
-   "slots": 20
+   "slots": 26
   },
   {
    "id": "iphe-biology",
@@ -331,7 +331,7 @@
    "url": "https://www.iphe.kobe-u.ac.jp/general-education-courses/pdf/timetable/2026/kouki/15_biology.pdf",
    "page": "https://www.iphe.kobe-u.ac.jp/general-education-courses/toppage/timetable_2nd.html",
    "sha256": "37fddbb9066619be5b1f9512a6a62435cdfe5fa1c959974629d7eb352f158d37",
-   "slots": 8
+   "slots": 10
   },
   {
    "id": "iphe-cs",
@@ -1679,7 +1679,9 @@
     "金|3Q|3",
     "金|3Q|4",
     "火|4Q|3",
-    "火|4Q|4"
+    "火|4Q|4",
+    "金|4Q|3",
+    "金|4Q|4"
    ],
    "5W-301": [
     "金|3Q|2",
@@ -1690,13 +1692,20 @@
     "金|4Q|4"
    ],
    "A-101": [
-    "水|4Q|4"
+    "金|3Q|3",
+    "金|3Q|4",
+    "水|4Q|3",
+    "水|4Q|4",
+    "金|4Q|3",
+    "金|4Q|4"
    ],
    "A-102": [
     "金|3Q|3",
+    "金|3Q|4",
     "水|4Q|3",
     "水|4Q|4",
-    "金|4Q|3"
+    "金|4Q|3",
+    "金|4Q|4"
    ],
    "A-201": [
     "金|3Q|3",
@@ -1782,6 +1791,8 @@
     "木|3Q|2",
     "金|3Q|2",
     "金|3Q|3",
+    "金|3Q|4",
+    "金|3Q|5",
     "月|4Q|2",
     "月|4Q|3",
     "月|4Q|4",
@@ -1794,7 +1805,9 @@
     "木|4Q|3",
     "金|4Q|1",
     "金|4Q|2",
-    "金|4Q|3"
+    "金|4Q|3",
+    "金|4Q|4",
+    "金|4Q|5"
    ],
    "C2-101": [
     "月|3Q|3",
@@ -1910,6 +1923,7 @@
     "水|3Q|2",
     "水|3Q|3",
     "金|3Q|1",
+    "金|3Q|2",
     "月|4Q|2",
     "月|4Q|3",
     "月|4Q|4",
@@ -1917,6 +1931,7 @@
     "火|4Q|2",
     "火|4Q|3",
     "火|4Q|4",
+    "火|4Q|5",
     "水|4Q|2",
     "水|4Q|3",
     "木|4Q|1",
@@ -1928,6 +1943,8 @@
    ],
    "C4-201": [
     "月|3Q|1",
+    "火|3Q|1",
+    "火|3Q|2",
     "水|3Q|2",
     "木|3Q|1",
     "木|3Q|2",
@@ -2063,6 +2080,7 @@
    "LR301": [
     "月|3Q|2",
     "月|3Q|3",
+    "月|3Q|4",
     "火|3Q|1",
     "火|3Q|2",
     "火|3Q|3",
@@ -2075,6 +2093,7 @@
     "金|3Q|3",
     "月|4Q|2",
     "月|4Q|3",
+    "月|4Q|4",
     "火|4Q|1",
     "火|4Q|2",
     "火|4Q|3",
@@ -3133,10 +3152,18 @@
     "木|4Q|2"
    ],
    "C220": [
-    "月|3Q|1",
+    "火|3Q|3",
+    "火|3Q|4",
+    "水|3Q|3",
     "水|3Q|4",
-    "月|4Q|1",
-    "水|4Q|4"
+    "木|3Q|3",
+    "木|3Q|4",
+    "火|4Q|3",
+    "火|4Q|4",
+    "水|4Q|3",
+    "水|4Q|4",
+    "木|4Q|3",
+    "木|4Q|4"
    ],
    "C301": [
     "月|3Q|1",
@@ -3165,13 +3192,15 @@
     "月|3Q|1",
     "火|3Q|1",
     "火|3Q|2",
-    "火|3Q|4",
+    "水|3Q|3",
+    "水|3Q|4",
     "木|3Q|1",
     "木|3Q|2",
     "月|4Q|1",
     "火|4Q|1",
     "火|4Q|2",
-    "火|4Q|4",
+    "水|4Q|3",
+    "水|4Q|4",
     "木|4Q|1",
     "木|4Q|2"
    ],
@@ -3196,8 +3225,10 @@
     "火|4Q|4"
    ],
    "C510": [
-    "月|3Q|2",
-    "月|4Q|2"
+    "月|3Q|3",
+    "月|3Q|4",
+    "月|4Q|3",
+    "月|4Q|4"
    ],
    "D303": [
     "月|3Q|1",

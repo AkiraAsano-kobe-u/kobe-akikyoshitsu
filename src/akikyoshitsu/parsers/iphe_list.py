@@ -9,6 +9,7 @@
   - 行に 3xxxx と 4xxxx の両方のコード -> 4xxxx より右の教室は後のクォーター
   - コードが片方だけ -> そのコードのクォーター。ただし教室が2つ並んでいれば左右で前後に分ける
   - コードの無い続きの行に教室が1つ -> 両方のクォーターに入れる (空きと誤判定しない側に倒す)
+見出しは「月曜1限」「火曜4・5限」のほか、「火曜」の次の行に「3限~4限」と分かれた形も読む。
   - source["semester"] = true (セメスター開講の表) -> 常に両方
 """
 from __future__ import annotations
@@ -22,7 +23,10 @@ from . import _pdf
 
 HEADING = re.compile(r"([月火水木金土])曜\s*([0-9・,、]+)限")
 CODE = re.compile(r"(?<![0-9A-Za-z])([1-4])[A-Z][0-9A-Z]{3}(?![0-9A-Za-z])")
-ROOM = re.compile(r"(?<![0-9A-Za-z\-部舎])[A-Z]\d{3}(?![0-9A-Za-z])")
+# 鶴甲第1の教室 (B210) と、他キャンパスの「第5学舎208教室」。「農学部B101」などは拾わない
+ROOM = re.compile(r"(?<![0-9A-Za-z\-部舎])[A-Z]\d{3}(?![0-9A-Za-z])|第\d学舎\d{3}")
+DAY_ONLY = re.compile(r"^\s*([月火水木金土])曜\s*$")  # 「火曜」の次の行に「3限~4限」と続く見出し
+RANGE = re.compile(r"^\s*(\d)限\s*[~〜\-]\s*(\d)限")
 
 
 def parse(path: Path, source: dict) -> list[Record]:
@@ -39,9 +43,20 @@ def parse(path: Path, source: dict) -> list[Record]:
                 day = heading.group(1)
                 periods = [int(x) for x in re.findall(r"\d", heading.group(2))]
                 continue
-            rooms = [(m.start(), m.group()) for m in ROOM.finditer(text)]
-            if not rooms or day is None:
+            day_only = DAY_ONLY.match(text)
+            if day_only:
+                day, periods = day_only.group(1), []
                 continue
+            span = RANGE.match(text)
+            if span and day is not None and not periods:
+                periods = list(range(int(span.group(1)), int(span.group(2)) + 1))
+                continue
+            rooms = [(m.start(), m.group()) for m in ROOM.finditer(text)]
+            if not rooms:
+                continue
+            if day is None or not periods:
+                # 見出しを読めないまま教室を捨てると、その教室が空きに見えてしまう
+                raise ValueError(f"{path.name} p{index + 1}: 曜日・時限の見出しが読めない行に教室がある: {text[:80]}")
             codes = [(m.start(), f"{m.group(1)}Q") for m in CODE.finditer(text)]
             early = [p for p, q in codes if q == first]
             late = [p for p, q in codes if q == last and last != first]

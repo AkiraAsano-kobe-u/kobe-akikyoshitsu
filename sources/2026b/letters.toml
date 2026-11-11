@@ -47,6 +47,7 @@ parser = "letters_kodokyoyo"
 
 [[source]]
 id = "lit-doctor"
+min_slots = 0  # 集中講義だけで、曜日・時限のある科目が無い
 title = "人文学研究科 博士課程後期課程 後期 (研究科共通科目は集中講義のみ)"
 url = "http://www.lit.kobe-u.ac.jp/students/pdf/d_2026b.pdf"
 parser = "letters_doctor"

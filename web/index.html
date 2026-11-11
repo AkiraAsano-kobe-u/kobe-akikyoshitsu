@@ -131,7 +131,7 @@ function quarterOn(date) {
 function nowState() {
   const d = new Date(), hhmm = d.getHours() * 100 + d.getMinutes();
   const weekday = d.getDay();
-  const period = Object.keys(ENDS).map(Number).find((p) => hhmm <= ENDS[p] && p <= 5);
+  const period = Object.keys(ENDS).map(Number).find((p) => hhmm <= ENDS[p]);
   return {
     day: weekday >= 1 && weekday <= 5 ? DAYS[weekday - 1] : "月",
     period: weekday >= 1 && weekday <= 5 && period ? period : 1,
@@ -159,6 +159,7 @@ function areaInfo(area) {
 }
 function seg(id, items, current, onPick) {
   const el = $(id);
+  const focused = el.contains(document.activeElement);
   el.replaceChildren(...items.map(({ value, label, sub }) => {
     const b = document.createElement("button");
     b.type = "button";
@@ -168,7 +169,9 @@ function seg(id, items, current, onPick) {
     b.onclick = () => onPick(value);
     return b;
   }));
-  el.querySelector('[aria-pressed="true"]')?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  const pressed = el.querySelector('[aria-pressed="true"]');
+  pressed?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  if (focused) pressed?.focus();
 }
 function weekTable(room, slots, info) {
   const box = document.createElement("div");
@@ -188,6 +191,7 @@ function weekTable(room, slots, info) {
       if (busy) td.className = "busy";
       if (d === state.day && p === state.period) td.classList.add("sel");
       td.title = d + "曜" + p + "限 " + (busy ? "授業あり" : "授業なし");
+      td.setAttribute("aria-label", td.title);
     }
   }
   const legend = document.createElement("p");
@@ -240,7 +244,12 @@ function render() {
         s.textContent = until === info.maxPeriod ? "終日" : "〜" + until + "限";
         b.append(s);
       }
-      b.onclick = () => { openRoom = openRoom === room ? null : room; render(); };
+      b.dataset.room = room;
+      b.onclick = () => {
+        openRoom = openRoom === room ? null : room;
+        render();
+        [...document.querySelectorAll(".room")].find((e) => e.dataset.room === room)?.focus();
+      };
       list.append(b);
       if (openRoom === room) list.append(weekTable(room, slots, info));
     }
@@ -254,15 +263,16 @@ function start(loaded) {
   try { area = localStorage.getItem("akikyoshitsu.area"); } catch {}
   state = { area, ...nowState() };
   $("now").onclick = () => { Object.assign(state, nowState()); render(); };
-  $("meta").textContent = `${data.title}　${data.generated} 時点の時間割　神戸大学の非公式ツールです`;
+  $("meta").textContent = `${data.title}　${data.generated} 生成　神戸大学の非公式ツールです`;
   $("sources").replaceChildren(...data.sources.map((s) => {
     const li = document.createElement("li"), a = document.createElement("a");
     a.href = s.url; a.textContent = s.title; a.rel = "noopener"; li.append(a); return li;
   }));
   render();
 }
+// データは `akikyoshitsu html` がこのファイルに埋め込む
 if (INLINE) start(INLINE);
-else fetch("data/latest.json").then((r) => r.json()).then(start).catch(() => { $("count").textContent = "時間割データを読み込めませんでした。再読み込みしてください。"; });
+else $("count").textContent = "時間割データがありません。";
 </script>
 </body>
 </html>

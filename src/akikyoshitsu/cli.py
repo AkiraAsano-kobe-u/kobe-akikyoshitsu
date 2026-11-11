@@ -14,15 +14,30 @@ NOTE = "注意: 時間割上の授業が無いというだけです。補講・�
 def _free(args) -> int:
     data = query.load(args.term)
     now = datetime.datetime.now()
-    words = args.when
-    day = next((w.rstrip("曜") for w in words if w.rstrip("曜") in tuple(DAYS)), DAYS[now.weekday()] if now.weekday() < 6 else None)
-    period = next((int(w.rstrip("限")) for w in words if w.rstrip("限").isdigit()), query.period_at(now.time()))
-    quarter = next((w.upper() for w in words if w.upper() in data["quarters"]), query.quarter_on(data, now.date()))
+    day = period = quarter = None
+    for word in args.when:
+        w = word.upper()
+        if w.rstrip("曜") in tuple(DAYS):
+            day = w.rstrip("曜")
+        elif w.rstrip("限").isdigit():
+            period = int(w.rstrip("限"))
+        elif w in data["quarters"]:
+            quarter = w
+        else:
+            print(f"解釈できない指定です: {word} (曜日は {'・'.join(DAYS)}、時限は数字、クォーターは {'・'.join(data['quarters'])})", file=sys.stderr)
+            return 2
+    if day is None and now.weekday() < 6:
+        day = DAYS[now.weekday()]
+    period = period or query.period_at(now.time())
+    quarter = quarter or query.quarter_on(data, now.date())
     if day is None or period is None or quarter is None:
-        print("いまは授業時間外です。曜日・時限・クォーターを指定してください (例: akikyoshitsu free 水 3 3Q)", file=sys.stderr)
+        print("いまは授業時間外か学期の期間外です。曜日・時限・クォーターを指定してください (例: akikyoshitsu free 水 3 3Q)", file=sys.stderr)
         return 2
     if period not in PERIODS:
         print(f"時限は {min(PERIODS)}〜{max(PERIODS)} で指定してください", file=sys.stderr)
+        return 2
+    if args.area and not any(args.area in area for area in data["areas"]):
+        print(f"エリア {args.area} はありません ({'・'.join(data['areas'])})", file=sys.stderr)
         return 2
     print(f"{data['title']} {quarter} {day}曜{period}限 に授業が入っていない教室")
     result = query.free_rooms(data, day, quarter, period)

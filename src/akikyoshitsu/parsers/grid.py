@@ -16,7 +16,7 @@ import unicodedata
 from pathlib import Path
 
 from ..core import DAYS, Record
-from . import _pdf
+from . import _pdf, _words
 
 HEAD = ("教室", "教\u3000室")
 SEMESTER = {"前期": ("1Q", "2Q"), "後期": ("3Q", "4Q")}
@@ -60,7 +60,7 @@ def parse(path: Path, source: dict) -> list[Record]:
     wanted = set(source.get("quarters", ("3Q", "4Q")))
     out: list[Record] = []
     for index, page in _pdf.pages(path):
-        ws = _pdf.words(page)
+        ws = _words.words(page)  # 教員名などとくっついた教室名を切り離して読む
         hs, vs = _pdf.segments(page)
         cols, head_y = _room_columns(ws, vs)
         if not cols:

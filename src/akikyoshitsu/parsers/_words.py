@@ -10,7 +10,9 @@ import re
 
 Word = tuple[float, float, float, float, str]
 
-ROOM_HEAD = re.compile(r"[A-Z]\d{3}")
+# 教室名の先頭 (B210 / LR501 / C3-302 / A-G03 / 5W-301) と末尾
+ROOM_HEAD = re.compile(r"(?:LR|[A-Z])\d{3}|[A-Z]\d?-[G\d]\d{2}|\d[EW]-\d{3}")
+ROOM_TAIL = re.compile(r"(?:[A-Z]\d{3}|-[G\d]\d{2})$")
 
 
 def _cuts(text: str) -> list[int]:
@@ -19,10 +21,12 @@ def _cuts(text: str) -> list[int]:
         prev, cur = text[p - 1], text[p]
         if cur == "★" and prev not in "、,・":
             cuts.append(p)
-        elif cur.isascii() and cur.isupper() and ROOM_HEAD.match(text, p) and not prev.isascii() and prev != "★":
+        elif cur.isascii() and (cur.isupper() or cur.isdigit()) and ROOM_HEAD.match(text, p) and not prev.isascii() and prev not in "★、，・":
             cuts.append(p)
-        elif not cur.isascii() and cur not in "、，・★" and re.search(r"[A-Z]\d{3}$", text[:p]):
+        elif not cur.isascii() and cur not in "、，・★" and ROOM_TAIL.search(text[:p]):
             cuts.append(p)
+        elif prev in "、，," and ROOM_TAIL.search(text[: p - 1]) and not ROOM_HEAD.match(text, p):
+            cuts.append(p)  # 「A-101、設計基礎C2」: 区切りの後ろが教室でなければそこで切る
     return cuts
 
 

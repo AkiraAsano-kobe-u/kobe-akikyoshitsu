@@ -41,6 +41,11 @@ def split_token(token: str) -> list[str]:
         part = part.strip("()[]【】")
         if not part:
             continue
+        if re.fullmatch(r"\d{3}", part) and out:
+            # 「B304・305」「本館102・103」: 棟の表記を前の教室から引き継ぐ
+            head = re.fullmatch(r"(.*?)\d{3}", out[-1])
+            if head and head.group(1):
+                part = head.group(1) + part
         m = re.fullmatch(r"([A-Z]+)(\d{3})-(\d{3})", part)
         if m and int(m.group(2)) < int(m.group(3)) <= int(m.group(2)) + 10:
             out += [f"{m.group(1)}{n}" for n in range(int(m.group(2)), int(m.group(3)) + 1)]
