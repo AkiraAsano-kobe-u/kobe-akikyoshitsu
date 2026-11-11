@@ -1,0 +1,13 @@
+name: test
+on:
+  push:
+  pull_request:
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv sync
+      # 時間割PDFは配布していないので、PDFを読むテストはここでは skip される
+      - run: uv run pytest -q

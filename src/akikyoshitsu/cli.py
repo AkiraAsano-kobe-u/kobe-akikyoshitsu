@@ -96,6 +96,26 @@ def _inspect(args) -> int:
     return 0
 
 
+def _html(args) -> int:
+    """データを埋め込んだ1ファイルのWebページを書き出す."""
+    import json
+    from pathlib import Path
+
+    from .sources import ROOT
+
+    data = query.load(args.term)
+    template = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    marker = "/*__DATA__*/null"
+    if marker not in template:
+        raise RuntimeError("web/index.html にデータの埋め込み位置がありません")
+    payload = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    out = Path(args.out)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(template.replace(marker, payload), encoding="utf-8")
+    print(out)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="akikyoshitsu", description="神戸大学の空き教室を時間割から割り出す (非公式)")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -112,6 +132,10 @@ def main(argv: list[str] | None = None) -> int:
     build.add_argument("term", help="学期 (例: 2026b)")
     build.add_argument("--refresh", action="store_true", help="キャッシュ済みPDFも取り直す")
     build.set_defaults(func=_build)
+    html = sub.add_parser("html", help="データを埋め込んだWebページを1ファイルで書き出す")
+    html.add_argument("--out", default="site/index.html")
+    html.add_argument("--term")
+    html.set_defaults(func=_html)
     inspect = sub.add_parser("inspect", help="source を個別に解析して結果を表示 (開発用)")
     inspect.add_argument("term")
     inspect.add_argument("ids", nargs="*", help="source の id (省略時は全部)")
