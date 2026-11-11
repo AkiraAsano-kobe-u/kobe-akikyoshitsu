@@ -8,80 +8,110 @@
 <style>
 :root {
   --bg: #f6f5f1; --surface: #ffffff; --ink: #1b1f24; --ink-2: #57606a; --line: #dcd9d0;
-  --accent: #0b4f6c; --accent-ink: #ffffff; --accent-soft: #e3eef2; --warn: #8a5a00; --warn-soft: #fbf1d9;
+  --accent: #0b4f6c; --accent-ink: #ffffff; --accent-soft: #e3eef2; --warn: #8a5a00;
   --radius: 10px;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #14171a; --surface: #1d2126; --ink: #e9ecef; --ink-2: #a3acb5; --line: #343a41;
-    --accent: #7cc4de; --accent-ink: #0c1b22; --accent-soft: #1f3540; --warn: #f0c36d; --warn-soft: #33290f;
+    --accent: #7cc4de; --accent-ink: #0c1b22; --accent-soft: #1f3540; --warn: #f0c36d;
     color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scrollbar-color: var(--line) transparent; }
 body {
-  margin: 0; background: var(--bg); color: var(--ink);
+  margin: 0; background: var(--bg); color: var(--ink); accent-color: var(--accent); caret-color: var(--accent);
   font: 16px/1.5 system-ui, -apple-system, "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", sans-serif;
   font-variant-numeric: tabular-nums;
 }
 ::selection { background: var(--accent); color: var(--accent-ink); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-main { max-width: 760px; margin: 0 auto; padding: 20px 16px 48px; }
-header { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
-h1 { font-size: 1.25rem; margin: 0; letter-spacing: .01em; }
-h2 { font-size: .8125rem; font-weight: 600; color: var(--ink-2); margin: 20px 0 6px; }
-button { font: inherit; color: inherit; cursor: pointer; }
+button { font: inherit; color: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+svg { width: 16px; height: 16px; flex: none; }
+main { max-width: 720px; margin: 0 auto; padding: 16px 16px 56px; }
+
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+h1 { font-size: 1.125rem; margin: 0; letter-spacing: .02em; }
 .now {
-  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 14px; font-size: .875rem;
-  display: inline-flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 0 14px; min-height: 36px;
+  font-size: .875rem; display: inline-flex; align-items: center; gap: 6px; transition: background .15s, border-color .15s, color .15s;
 }
 .now:hover { border-color: var(--accent); }
-.now svg, .note svg { width: 16px; height: 16px; flex: none; }
-.controls { display: grid; gap: 8px; }
-.seg { display: flex; gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px; overflow-x: auto; scrollbar-width: none; }
-.seg::-webkit-scrollbar { display: none; }
+.now[aria-pressed="true"] { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+
+.tabs { display: flex; gap: 0; justify-content: space-between; margin: 10px -16px 14px; padding: 0 16px; border-bottom: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tabs button {
+  flex: none; min-height: 44px; padding: 0 6px; border: 0; background: none; color: var(--ink-2); font-size: .875rem;
+  white-space: nowrap; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .15s, border-color .15s;
+}
+.tabs button:hover { color: var(--ink); }
+.tabs button[aria-pressed="true"] { color: var(--ink); font-weight: 600; border-bottom-color: var(--accent); }
+
+.controls { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+#periods { grid-column: 1 / -1; }
+.seg { display: flex; gap: 2px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 3px; min-width: 0; }
 .seg button {
-  flex: 1 0 auto; min-width: 44px; min-height: 40px; padding: 4px 12px; border: 0; border-radius: 7px; background: transparent;
+  flex: 1 1 0; min-width: 36px; min-height: 40px; padding: 4px 6px; border: 0; border-radius: 7px; background: transparent;
   white-space: nowrap; line-height: 1.2; transition: background .15s, color .15s;
 }
 .seg button:hover { background: var(--accent-soft); }
 .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
-.seg button small { display: block; font-size: .6875rem; font-weight: 400; opacity: .8; }
-.note {
-  display: flex; gap: 8px; align-items: flex-start; margin: 16px 0 0; padding: 10px 12px; border-radius: var(--radius);
-  background: var(--warn-soft); color: var(--warn); font-size: .8125rem; line-height: 1.45;
-}
-.note svg { margin-top: 2px; }
-.count { color: var(--ink-2); font-size: .875rem; margin: 20px 0 0; }
+.seg button small { display: block; font-size: .6875rem; font-weight: 400; opacity: .75; margin-top: 1px; }
+#quarters button { min-width: 44px; }
+
+.summary { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin: 24px 0 4px; }
+.count { margin: 0; font-size: .875rem; color: var(--ink-2); }
+.count b { font-size: 1.375rem; font-weight: 700; color: var(--ink); margin-right: 2px; }
+.note { margin: 0; display: inline-flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--ink-2); }
+.note svg { color: var(--warn); width: 14px; height: 14px; }
+
+.group { padding: 12px 0; border-top: 1px solid var(--line); }
+.group:first-child { margin-top: 8px; }
+h2 { font-size: .8125rem; font-weight: 600; color: var(--ink-2); margin: 0 0 8px; }
 .rooms { display: flex; flex-wrap: wrap; gap: 6px; }
 .room {
-  border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 10px; min-height: 40px;
-  display: inline-flex; align-items: baseline; gap: 6px; transition: border-color .15s, background .15s;
+  border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 0 10px; min-height: 40px; min-width: 56px;
+  display: inline-flex; align-items: baseline; justify-content: center; gap: 6px; line-height: 38px;
+  transition: border-color .15s, background .15s;
 }
 .room:hover { border-color: var(--accent); }
+.room:active { background: var(--accent-soft); }
 .room[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); }
 .room b { font-weight: 600; }
 .room span { font-size: .75rem; color: var(--ink-2); }
 .room.rest span { color: var(--accent); font-weight: 600; }
-.week { margin: 8px 0 4px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); width: 100%; }
-.week h3 { margin: 0 0 8px; font-size: .9375rem; }
-.week table { border-collapse: separate; border-spacing: 3px; width: 100%; max-width: 420px; table-layout: fixed; }
+@media (min-width: 600px) {
+  .tabs { justify-content: flex-start; gap: 8px; }
+  .tabs button { font-size: .9375rem; padding: 0 10px; }
+  .group { display: grid; grid-template-columns: 7.5rem 1fr; gap: 12px; }
+  h2 { margin: 0; line-height: 40px; }
+}
+
+.week { margin: 2px 0 6px; padding: 14px; background: var(--surface); border: 1px solid var(--accent); border-radius: var(--radius); width: 100%; }
+.week h3 { margin: 0 0 10px; font-size: .9375rem; display: flex; justify-content: space-between; align-items: baseline; }
+.week h3 small { font-size: .75rem; font-weight: 400; color: var(--ink-2); }
+.week table { border-collapse: separate; border-spacing: 3px; margin: -3px; width: calc(100% + 6px); max-width: 400px; table-layout: fixed; }
 .week th { font-size: .75rem; font-weight: 500; color: var(--ink-2); padding: 0; }
-.week td { height: 28px; border-radius: 5px; background: var(--accent-soft); }
-.week td.busy { background: var(--ink-2); opacity: .55; }
-.week td.sel { outline: 2px solid var(--accent); outline-offset: 1px; }
-.week p { margin: 8px 0 0; font-size: .75rem; color: var(--ink-2); display: flex; gap: 14px; }
-.week i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; background: var(--accent-soft); }
-.week i.busy { background: var(--ink-2); opacity: .55; }
-.empty { color: var(--ink-2); margin: 24px 0; }
-footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .8125rem; color: var(--ink-2); }
+.week th:first-child { width: 20px; }
+.week td { height: 26px; border-radius: 5px; background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.week td.busy { background: color-mix(in srgb, var(--ink-2) 55%, var(--surface)); }
+.week td.sel { box-shadow: inset 0 0 0 2px var(--accent); }
+.week td.busy.sel { box-shadow: inset 0 0 0 2px var(--ink); }
+.week p { margin: 10px 0 0; font-size: .75rem; color: var(--ink-2); display: flex; gap: 14px; }
+.week i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.week i.busy { background: color-mix(in srgb, var(--ink-2) 55%, var(--surface)); }
+.empty { color: var(--ink-2); margin: 32px 0; }
+
+footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--line); font-size: .75rem; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 16px; align-items: baseline; }
 footer a { color: inherit; text-underline-offset: 3px; }
-footer details { margin-top: 8px; }
-footer summary { cursor: pointer; width: fit-content; }
-footer ul { margin: 8px 0 0; padding-left: 1.2em; }
-footer li { margin: 2px 0; }
+footer a:hover { color: var(--ink); }
+footer details { flex-basis: 100%; }
+footer summary { cursor: pointer; width: fit-content; padding: 4px 0; }
+footer ul { margin: 6px 0 0; padding-left: 1.2em; columns: 2 260px; }
+footer li { margin: 2px 0; break-inside: avoid; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
@@ -94,20 +124,23 @@ footer li { margin: 2px 0; }
       いま
     </button>
   </header>
+  <nav class="tabs" id="areas" aria-label="エリア"></nav>
   <div class="controls">
-    <div class="seg" id="areas" role="group" aria-label="エリア"></div>
     <div class="seg" id="days" role="group" aria-label="曜日"></div>
-    <div class="seg" id="periods" role="group" aria-label="時限"></div>
     <div class="seg" id="quarters" role="group" aria-label="クォーター"></div>
+    <div class="seg" id="periods" role="group" aria-label="時限"></div>
   </div>
-  <p class="note">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.25 14.25 13H1.75L8 2.25Z"/><path d="M8 6.5v3"/><path d="M8 11.4v.1"/></svg>
-    <span>時間割からの推定です。補講・試験・集中講義・課外活動・施錠は反映していません。</span>
-  </p>
-  <p class="count" id="count" aria-live="polite"></p>
+  <div class="summary">
+    <p class="count" id="count" aria-live="polite"></p>
+    <p class="note">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.25 14.25 13H1.75L8 2.25Z"/><path d="M8 6.5v3"/><path d="M8 11.4v.1"/></svg>
+      補講・試験・施錠は反映していません
+    </p>
+  </div>
   <div id="out"></div>
   <footer>
     <span id="meta"></span>
+    <span>神戸大学 非公式</span>
     <details>
       <summary>出典の時間割</summary>
       <ul id="sources"></ul>
@@ -129,14 +162,17 @@ function quarterOn(date) {
   return iso < data.quarters[qs[0]][0] ? qs[0] : qs[qs.length - 1];
 }
 function nowState() {
-  const d = new Date(), hhmm = d.getHours() * 100 + d.getMinutes();
-  const weekday = d.getDay();
-  const period = Object.keys(ENDS).map(Number).find((p) => hhmm <= ENDS[p]);
-  return {
-    day: weekday >= 1 && weekday <= 5 ? DAYS[weekday - 1] : "月",
-    period: weekday >= 1 && weekday <= 5 && period ? period : 1,
-    quarter: quarterOn(d),
-  };
+  let d = new Date();
+  const hhmm = d.getHours() * 100 + d.getMinutes(), weekday = d.getDay();
+  let period = weekday >= 1 && weekday <= 5 ? Object.keys(ENDS).map(Number).find((p) => hhmm <= ENDS[p]) : undefined;
+  if (!period) { // 授業時間外は次の平日の1限
+    do d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1); while (d.getDay() === 0 || d.getDay() === 6);
+    period = 1;
+  }
+  return { day: DAYS[d.getDay() - 1], period, quarter: quarterOn(d) };
+}
+function shortName(room, key) {
+  return /^[A-Z0-9]+$/.test(key) ? room : room.slice(key.length) || room;
 }
 function building(room) {
   const m = room.match(/^(LR|[A-Z]\d?(?=-)|\d[EW](?=-)|[A-Z]+|.*?(?:館|学舎)|[^\d]+)/);
@@ -177,7 +213,8 @@ function weekTable(room, slots, info) {
   const box = document.createElement("div");
   box.className = "week";
   const h = document.createElement("h3");
-  h.textContent = room + "　" + state.quarter;
+  const q = document.createElement("small"); q.textContent = state.quarter;
+  h.append(room, q);
   const table = document.createElement("table");
   const head = table.insertRow();
   head.append(document.createElement("th"));
@@ -224,11 +261,14 @@ function render() {
     free++;
   }
   const total = Object.keys(info.rooms).length;
-  $("count").textContent = `${state.day}曜 ${state.period}限　${total} 教室のうち ${free} 教室に授業なし`;
+  const n = document.createElement("b"); n.textContent = free;
+  $("count").replaceChildren(n, ` / ${total} 教室　授業なし`);
+  const now = nowState();
+  $("now").setAttribute("aria-pressed", String(now.day === state.day && Math.min(now.period, info.maxPeriod) === state.period && now.quarter === state.quarter));
   const out = $("out");
   out.replaceChildren();
   if (!free) {
-    const p = document.createElement("p"); p.className = "empty"; p.textContent = "この時限はすべての教室に授業があります。"; out.append(p);
+    const p = document.createElement("p"); p.className = "empty"; p.textContent = "空き教室なし"; out.append(p);
   }
   for (const key of [...groups.keys()].sort((a, b) => a.localeCompare(b, "ja"))) {
     const h = document.createElement("h2"); h.textContent = /^[A-Z0-9]+$/.test(key) ? key + "棟" : key;
@@ -238,10 +278,11 @@ function render() {
       b.type = "button";
       b.className = "room" + (until === info.maxPeriod ? " rest" : "");
       b.setAttribute("aria-expanded", String(openRoom === room));
-      const name = document.createElement("b"); name.textContent = room; b.append(name);
+      const name = document.createElement("b"); name.textContent = shortName(room, key); b.append(name);
+      b.setAttribute("aria-label", room + (until > state.period ? ` ${until}限まで授業なし` : ""));
       if (until > state.period) {
         const s = document.createElement("span");
-        s.textContent = until === info.maxPeriod ? "終日" : "〜" + until + "限";
+        s.textContent = "〜" + until + "限";
         b.append(s);
       }
       b.dataset.room = room;
@@ -253,7 +294,9 @@ function render() {
       list.append(b);
       if (openRoom === room) list.append(weekTable(room, slots, info));
     }
-    out.append(h, list);
+    const group = document.createElement("section"); group.className = "group";
+    group.append(h, list);
+    out.append(group);
   }
 }
 function save() { try { localStorage.setItem("akikyoshitsu.area", state.area); } catch {} }
@@ -263,7 +306,7 @@ function start(loaded) {
   try { area = localStorage.getItem("akikyoshitsu.area"); } catch {}
   state = { area, ...nowState() };
   $("now").onclick = () => { Object.assign(state, nowState()); render(); };
-  $("meta").textContent = `${data.title}　${data.generated} 生成　神戸大学の非公式ツールです`;
+  $("meta").textContent = data.title;
   $("sources").replaceChildren(...data.sources.map((s) => {
     const li = document.createElement("li"), a = document.createElement("a");
     a.href = s.url; a.textContent = s.title; a.rel = "noopener"; li.append(a); return li;
