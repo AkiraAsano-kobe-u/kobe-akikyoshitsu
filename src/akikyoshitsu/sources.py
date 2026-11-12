@@ -8,7 +8,7 @@ import urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-USER_AGENT = "akikyoshitsu/0.1 (unofficial classroom finder for Kobe University students)"
+USER_AGENT = "akikyoshitsu/0.1 (+https://github.com/AkiraAsano-kobe-u/kobe-akikyoshitsu)"
 
 
 def load_term(term: str, root: Path = ROOT) -> tuple[dict, list[dict]]:

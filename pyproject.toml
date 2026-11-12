@@ -7,6 +7,11 @@ license = "MIT"
 requires-python = ">=3.11"
 dependencies = ["pymupdf>=1.24"]
 
+[project.urls]
+Homepage = "https://akiraasano-kobe-u.github.io/kobe-akikyoshitsu/"
+Repository = "https://github.com/AkiraAsano-kobe-u/kobe-akikyoshitsu"
+Issues = "https://github.com/AkiraAsano-kobe-u/kobe-akikyoshitsu/issues"
+
 [project.scripts]
 akikyoshitsu = "akikyoshitsu.cli:main"
 
