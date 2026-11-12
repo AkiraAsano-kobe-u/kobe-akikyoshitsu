@@ -3,25 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131415" media="(prefers-color-scheme: dark)">
 <title>神大 空き教室</title>
 <meta name="description" content="神戸大学の公開時間割から、授業が入っていない教室を探す非公式ツール">
 <style>
 :root {
-  --bg: #f7f4ee; --surface: #fdfbf7; --well: #efe9df; --pick: #fdfbf7;
-  --ink: #1f1b16; --ink-2: #5e554a; --ink-3: #7b7266;
-  --line: color-mix(in srgb, var(--ink) 10%, transparent);
-  --accent: #0b4f6c;
-  --free: color-mix(in srgb, var(--accent) 26%, var(--surface)); --busy: color-mix(in srgb, var(--ink) 9%, var(--surface));
+  --bg: #ffffff; --surface: #ffffff; --well: #f3f4f5; --pick: #ffffff;
+  --ink: #16181a; --ink-2: #50555b; --ink-3: #71777e;
+  --line: color-mix(in srgb, var(--ink) 11%, transparent);
+  --accent: #0b7a5c;
+  --free: #bfe9d6; --busy: color-mix(in srgb, var(--ink) 7%, var(--surface));
   --lift: 0 1px 2px rgba(0, 0, 0, .05);
   --ease: cubic-bezier(.22, 1, .36, 1);
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #161513; --surface: #1c1a18; --well: #12110f; --pick: #262421;
-    --ink: #efe9de; --ink-2: #aaa398; --ink-3: #8a847a;
-    --accent: #7cc4de;
-    --free: color-mix(in srgb, var(--accent) 34%, var(--surface)); --busy: color-mix(in srgb, var(--ink) 8%, var(--surface));
+    --bg: #131415; --surface: #191a1c; --well: #0d0e0f; --pick: #25272a;
+    --ink: #ecedee; --ink-2: #a2a6ab; --ink-3: #82878d;
+    --accent: #5fcfa6;
+    --free: color-mix(in srgb, var(--accent) 36%, var(--surface)); --busy: color-mix(in srgb, var(--ink) 8%, var(--surface));
     --lift: inset 0 1px 0 rgba(255, 255, 255, .08);
     color-scheme: dark;
   }
